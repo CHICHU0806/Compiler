@@ -44,17 +44,17 @@ public:
 
         switch (ch) {
             case '+':
-                return {TokenType::Plus, ""};
+                return {TokenType::Plus, "+"};
             case '-':
-                return {TokenType::Minus, ""};
+                return {TokenType::Minus, "-"};
             case '*':
-                return {TokenType::Mul, ""};
+                return {TokenType::Mul, "*"};
             case '/':
-                return {TokenType::Div, ""};
+                return {TokenType::Div, "/"};
             case '(':
-                return {TokenType::LParen, ""};
+                return {TokenType::LParen, "("};
             case ')':
-                return {TokenType::RParen, ""};
+                return {TokenType::RParen, ")"};
             default:
                 return {TokenType::Invalid, std::string(1, ch)};
         }
@@ -85,3 +85,52 @@ private:
         return {TokenType::Number,input_.substr(start,pos_-start)};
     }
 };
+
+std::string tokenTypeToString(TokenType type) {
+    switch (type) {
+        case TokenType::Number:
+            return "Number";
+        case TokenType::Plus:
+            return "Plus";
+        case TokenType::Minus:
+            return "Minus";
+        case TokenType::Mul:
+            return "Mul";
+        case TokenType::Div:
+            return "Div";
+        case TokenType::LParen:
+            return "LParen";
+        case TokenType::RParen:
+            return "RParen";
+        case TokenType::End:
+            return "End";
+        case TokenType::Invalid:
+            return "Invalid";
+        default:
+            return "Unknown";
+    }
+}
+
+int main() {
+    std::string input;
+
+    std::cout << "Input expression: ";
+    std::getline(std::cin, input);
+
+    Lexer lexer(input);
+
+    while (true) {
+        Token token = lexer.nextToken();
+
+        std::cout << tokenTypeToString(token.type)
+                  << " : "
+                  << token.text
+                  << std::endl;
+
+        if (token.type == TokenType::End || token.type == TokenType::Invalid) {
+            break;
+        }
+    }
+
+    return 0;
+}
