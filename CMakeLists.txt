@@ -5,14 +5,17 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(Compiler main.cpp
         Token/token.h
-        Lexer/Lexer.cpp
-        Lexer/Lexer.h
+        Lexer/Src/Lexer.cpp
+        Lexer/Inc/Lexer.h
         Parser/Src/Parser.cpp
-        Parser/Inc/Parser.h)
+        Parser/Inc/Parser.h
+        AST/Expr.h)
 
 include_directories(
+        ./AST
         ./Token
-        ./Lexer
+        ./Lexer/Inc
+        ./Lexer/Src
         ./Parser/Inc
         ./Parser/Src
 )
